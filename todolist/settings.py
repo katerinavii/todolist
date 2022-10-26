@@ -12,16 +12,14 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import environ
 from pathlib import Path
 
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
+env = environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+ENV_PATH = BASE_DIR.joinpath('.env')
 # Take environment variables from .env file
-environ.Env.read_env(BASE_DIR.joinpath('.env'))
+if ENV_PATH.exists():
+    environ.Env.read_env(ENV_PATH)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -30,7 +28,7 @@ environ.Env.read_env(BASE_DIR.joinpath('.env'))
 SECRET_KEY = env('SECRET_KEY') #'django-insecure-b1$1wh+wz0-a!n513(a+^r=k-gf0g_#7u!ffsrzw29k#wqq9_&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = env.bool('DEBUG', default=False)
 
 ALLOWED_HOSTS = ['*']
 
