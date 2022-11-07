@@ -1,17 +1,16 @@
-FROM python:3.9
+FROM python:3.10
 
-WORKDIR /todolist
+WORKDIR /opt/todolist
 
-COPY requirements.txt .
+COPY ../requirements.txt .
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-#    gcc \
     curl
-#    build-essential \
-#    libpq-dev
 RUN apt-get autoclean && apt-get autoremove
 RUN rm -rf /var/lib/apt/lists/* /tmp /var/tmp
 RUN pip install -r requirements.txt
-# Копируем код приложения
+# Копируем код приложения и миграции
 COPY app/ .
-COPY migrations migrations
+#COPY migrations migrations
+
+ENTRYPOINT ["bash", "entrypoint.sh"]

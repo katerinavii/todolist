@@ -85,7 +85,7 @@ DATABASES = {
         'NAME': 'todolist', #env('POSTGRES_DB'),
         'USER': 'postgres', #env('POSTGRES_USER'),
         'PASSWORD': '123456', #env('POSTGRES_PASSWORD'),
-        'HOST': '127.0.0.1', #env('POSTGRES_HOST', default='127.0.0.1'),
+        'HOST': env('POSTGRES_HOST'),
         'PORT': '5432',
     }
 }
@@ -127,6 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+#STATIC_ROOT = BASE_DIR.parent.joinpath('deploy', 'nginx', 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
