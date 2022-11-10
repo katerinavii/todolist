@@ -54,8 +54,7 @@ jobs:
           command: "ansible-vault decrypt ./deploy/env"
       - name: Render template
         run: |
-          mv ./deploy/env ./deploy/.env
-          printf "\nTAG_NAME=${{ steps.tag.outputs.tag }}" >> ./deploy/.env
+          printf "\nTAG_NAME=${{ steps.tag.outputs.tag }}" >> ./deploy/env
 
       - name: Copy on server
         uses: appleboy/scp-action@master
