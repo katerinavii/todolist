@@ -51,9 +51,8 @@ jobs:
           command: "ansible-vault decrypt ./deploy/env"
       - name: Render template
         run: |
-          mv ./deploy/env ./deploy/.env
-          ls -la ./deploy/
-          printf "\nTAG_NAME=${{ steps.tag.outputs.tag }}" >> ./deploy/.env
+          sudo mv ./deploy/env ./deploy/.env
+          sudo printf "\nTAG_NAME=${{ steps.tag.outputs.tag }}" >> ./deploy/.env
 
       - name: Copy on server
         uses: appleboy/scp-action@master
@@ -64,7 +63,6 @@ jobs:
           source: "deploy/*"
           target: todolist
           strip_components: 1
-
       - name: Run compose
         uses: appleboy/ssh-action@master
         with:
@@ -74,7 +72,6 @@ jobs:
           script: |
             cd todolist
             docker-compose up -d
-
       - name: Clear after deploy
         if: always()
         uses: appleboy/ssh-action@master
