@@ -3,6 +3,10 @@ services:
   postgres:
     image: postgres:14.5
     restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - pg_data_todolist:/var/lib/postgresql/data
     env_file:
@@ -16,7 +20,7 @@ services:
       - backend_nw
 
   api:
-    image: katerinavii/todolist:${TAG_NAME:-latest}
+    image: katerinavii/todolist:latest
     restart: always
     env_file:
       - .env
