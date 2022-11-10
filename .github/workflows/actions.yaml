@@ -52,7 +52,6 @@ jobs:
         with:
           vault_key: ${{ secrets.VAULT_PASSWORD }}
           command: "ansible-vault decrypt deploy/env"
-          ansible-vault decrypt deploy/docker-compose-ci.yaml
 
       - name: Render template
         run: |
