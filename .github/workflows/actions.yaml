@@ -36,9 +36,6 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-22.04
-#    env:
-#      ANSIBLE_VAULT_PASSWORD_FILE: /tmp/.vault_pass.txt
-#      VAULT_PASSWORD: ${{ secrets.VAULT_PASSWORD }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -54,7 +51,9 @@ jobs:
           command: "ansible-vault decrypt ./deploy/env"
       - name: Render template
         run: |
-          printf "\nTAG_NAME=${{ steps.tag.outputs.tag }}" >> ./deploy/env
+          mv ./deploy/env ./deploy/.env
+          ls -la ./deploy/
+          printf "\nTAG_NAME=${{ steps.tag.outputs.tag }}" >> ./deploy/.env
 
       - name: Copy on server
         uses: appleboy/scp-action@master
