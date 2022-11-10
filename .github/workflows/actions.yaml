@@ -51,7 +51,7 @@ jobs:
         uses: anthonykgross/ansible-vault-cli-github-action@v1
         with:
           vault_key: ${{ secrets.VAULT_PASSWORD }}
-          command: "ansible-vault decrypt deploy/env"
+          command: ansible-vault decrypt deploy/env
       - name: Render template
         run: |
 #          echo "$VAULT_PASSWORD" > /tmp/.vault_pass.txt
