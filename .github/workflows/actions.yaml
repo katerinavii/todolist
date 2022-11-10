@@ -39,11 +39,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Get tag
-        id: tag
-        uses: dawidd6/action-get-tag@v1
-        with:
-          strip_v: true
+#      - name: Get tag
+#        id: tag
+#        uses: dawidd6/action-get-tag@v1
+#        with:
+#          strip_v: true
       - name: Decrypt files
         uses: anthonykgross/ansible-vault-cli-github-action@v1
         with:
@@ -70,8 +70,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd todolist
-            docker compose pull
-            docker compose up -d
+            echo ${{ secrets.SSH_PASSWORD }} | sudo -S docker-compose up -d
       - name: Clear after deploy
         if: always()
         uses: appleboy/ssh-action@master
@@ -80,4 +79,4 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            docker system prune -a -f
+            echo ${{ secrets.SSH_PASSWORD }} | sudo -S docker system prune -a -f
