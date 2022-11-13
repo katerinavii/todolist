@@ -20,7 +20,7 @@ services:
       - backend_nw
 
   api:
-    image: katerinaa/todolist:latest
+    image: katerinaa/todolist:v0.34.22
     restart: always
     env_file:
       - .env
