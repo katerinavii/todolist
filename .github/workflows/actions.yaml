@@ -70,7 +70,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd todolist
-            echo ${{ secrets.SSH_PASSWORD }} | sudo docker-compose up -d
+            echo ${{ secrets.SSH_PASSWORD }} | sudo -S docker-compose up -d
       - name: Clear after deploy
         if: always()
         uses: appleboy/ssh-action@master
